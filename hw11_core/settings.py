@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hw11.apps.Hw11Config',
+    'hw11',
 ]
 
 if DEBUG:
@@ -142,3 +142,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# FIXTURE_DIRS = (
+#     os.path.join(BASE_DIR, 'hw11/fixtures'),
+# )
