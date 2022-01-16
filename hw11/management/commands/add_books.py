@@ -22,7 +22,7 @@ def get_authors():
         BaseCommand().stdout.write(BaseCommand().style.ERROR('Empty Author table in db'))
         BaseCommand().stdout.write(BaseCommand().style.SUCCESS('Creating 3 new Author objects'))
         os.system(f'python manage.py add_authors {3 - Author.objects.all().count()}')
-    for i in range(1, 3):
+    for i in range(random.randint(1, 3)):
         authors.append(
             Author.objects.get(
                 pk=Author.objects.all().values_list('pk', flat=True)

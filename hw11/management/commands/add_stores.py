@@ -15,7 +15,7 @@ def get_books():
         BaseCommand().stdout.write(BaseCommand().style.SUCCESS(f'Creating {15 - Book.objects.all().count()} new Book '
                                                                f'objects'))
         os.system(f'python manage.py add_books {15 - Book.objects.all().count()}')
-    for i in range(1, int(Book.objects.all().count() // 1.5)):
+    for i in range(random.randint(1, int(Book.objects.all().count() // 1.3))):
         books.append(
             Book.objects.get(
                 pk=Book.objects.all().values_list('pk', flat=True)
