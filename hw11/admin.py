@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.core.management import BaseCommand
 from django.db.models import Avg
 
 from .models import Author, Book, Publisher, Store
