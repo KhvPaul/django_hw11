@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div style="display: flex; flex-direction: row; align-items: center">
+
+        <h1>All Stores</h1>
+
+    </div>
+
+    {% if store_list %}
+    <ul>
+      {% for store in store_list %}
+      <li>
+          <p><a href="{{store.get_absolute_url}}">{{ store.name }} ({{ store.books.count }} books)</a></p>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no authors.</p>
+    {% endif %}
+
+{% endblock %}

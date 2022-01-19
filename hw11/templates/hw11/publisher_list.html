@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div style="display: flex; flex-direction: row; align-items: center">
+
+        <h1>All Publishers</h1>
+
+    </div>
+
+    {% if publisher_list %}
+    <ul>
+      {% for publisher in publisher_list %}
+      <li>
+          <p><a href="{{publisher.get_absolute_url}}">{{ publisher.name }}</a></p>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no publishers.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+    <title>Hw11</title>
+{% endblock %}
+{% block content %}
+<h1>Hw11</h1>
+    <p>The application has the following record counts:</p>
+    <ul>
+        <li><strong>Authors:</strong> {{ num_authors }}</li>
+        <li><strong>Books:</strong> {{ num_books }}</li>
+        <li><strong>Publishers:</strong> {{ num_publishers }}</li>
+        <li><strong>Stores:</strong>{{ num_stores }}</li>
+    </ul>
+{% endblock %}

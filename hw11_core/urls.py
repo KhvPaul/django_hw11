@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
+
+    path('hw11/', include('hw11.urls')),
+    path('', RedirectView.as_view(url='/hw11/', permanent=True)),
+
 ]

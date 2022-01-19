@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div style="display: flex; flex-direction: row; align-items: center">
+
+        <h1>All Authors</h1>
+
+    </div>
+
+    {% if author_list %}
+    <ul>
+      {% for author in author_list %}
+      <li>
+          <p><a href="{{author.get_absolute_url}}">{{ author.name }} ({{ author.age }})</a></p>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no authors.</p>
+    {% endif %}
+
+{% endblock %}
