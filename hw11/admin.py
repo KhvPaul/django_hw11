@@ -46,18 +46,18 @@ class PublisherAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['name', 'pages', 'price', 'publisher', 'pubdate', 'books_count']
+    list_display = ['name', 'pages', 'price', 'publisher', 'pubdate', 'authors_count']
     search_fields = ['name', 'publisher']
     list_filter = ['pubdate']
     readonly_fields = ['name', 'pages', 'publisher', 'pubdate', 'show_authors']
     fields = ['name', 'pages', 'rating', 'price', 'publisher', 'pubdate', 'show_authors']
     sortable_by = ['pages', 'rating', 'price', 'pubdate']
 
-    def books_count(self, obj):
+    def authors_count(self, obj):
         count = obj.authors.count()
         return count
 
-    books_count.short_description = 'Authors count'
+    authors_count.short_description = 'Authors count'
 
     def show_authors(self, obj):
         authors, out = obj.authors.all(), ''
