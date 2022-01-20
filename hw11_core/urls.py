@@ -20,8 +20,10 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('silk/', include('silk.urls', namespace='silk')),
 
     path('hw11/', include('hw11.urls')),
     path('', RedirectView.as_view(url='/hw11/', permanent=True)),
 
 ]
+
