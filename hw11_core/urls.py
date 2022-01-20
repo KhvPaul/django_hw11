@@ -26,4 +26,3 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/hw11/', permanent=True)),
 
 ]
-

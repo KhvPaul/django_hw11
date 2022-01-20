@@ -1,11 +1,10 @@
 from abc import ABC
 
-from django.db.models import Count, Avg, Func
-
-from .models import Author, Book, Publisher, Store
-
+from django.db.models import Avg, Count, Func
 from django.shortcuts import render
 from django.views import generic
+
+from .models import Author, Book, Publisher, Store
 
 
 def index(request):
