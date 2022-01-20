@@ -1,26 +1,31 @@
-import os
+from django.core.management import call_command
 
 from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = 'Fills the database with pseudo-conscious values.' \
-           ' You must specify a count of values \'authors_count publishers_count books_count stores_count\'' \
-           ' \n 0 to fill db with default values 150 25 500 40 '  # noqa: A003
+    help = 'Fills the database with pseudo-conscious values. \n' \
+           ' You must specify a count of values [authors_count, publishers_count, books_count, stores_count]' \
+           ' \n empty field to fill db with default values [150 25 500 40] '  # noqa: A003
 
     def add_arguments(self, parser):
-        parser.add_argument('fill_db', nargs='+', type=int, choices=range(0, 100000),
-                            help='You must specify a count of values \'authors_count publishers_count books_count '
-                                 'stores_count\' \n 0 to fill db with default values 150 25 500 40')
-
-        # parser.add_argument('fill_db', required=False)
+        parser.add_argument('authors', nargs='?', type=int, choices=range(1, 100000), default=150,
+                            help='You must specify a count of authors [1; 100000] (default = 150)',
+                            metavar='authors_count')
+        parser.add_argument('publishers', nargs='?', type=int, choices=range(1, 100000), default=25,
+                            help='You must specify a count of publishers [1; 100000] (default 25)',
+                            metavar='publishers_count')
+        parser.add_argument('books', nargs='?', type=int, choices=range(1, 100000), default=500,
+                            help='You must specify a count of books [1; 100000] (default 500)',
+                            metavar='books_count')
+        parser.add_argument('stores', nargs='?', type=int, choices=range(1, 100000), default=40,
+                            help='You must specify a count of stores [1; 100000] (default 40)',
+                            metavar='stores_count')
 
     def handle(self, *args, **options):
-        options['fill_db'] += [0, 0, 0]
-
-        os.system(f"python manage.py add_authors {options['fill_db'][0] if options['fill_db'][0] else 150}")
-        os.system(f"python manage.py add_publishers {options['fill_db'][1] if options['fill_db'][1] else 25}")
-        os.system(f"python manage.py add_books {options['fill_db'][2] if options['fill_db'][2] else 500}")
-        os.system(f"python manage.py add_stores {options['fill_db'][3] if options['fill_db'][3] else 40}")
+        call_command("add_authors", options['authors'])
+        call_command("add_publishers", options['publishers'])
+        call_command("add_books", options['books'])
+        call_command("add_stores", options['stores'])
 
         self.stdout.write(self.style.SUCCESS('Successfully filled the database with pseudo-conscious objects'))

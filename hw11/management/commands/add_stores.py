@@ -30,8 +30,9 @@ class Command(BaseCommand):
     help = 'Creates the specified number of new stores. You must specify a number'  # noqa: A003
 
     def add_arguments(self, parser):
-        parser.add_argument('add_stores', type=int, choices=range(1, 100000), help='The passed value of the created '
-                                                                                   'stores')
+        parser.add_argument('add_stores', nargs='?', type=int, choices=range(1, 100000), default=40,
+                            help='You must specify a count of stores [1; 100000] (default = 40)',
+                            metavar='stores_count')
 
     def handle(self, *args, **options):
         for j in range(options['add_stores']):

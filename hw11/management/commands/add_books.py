@@ -51,8 +51,9 @@ class Command(BaseCommand):
     help = 'Creates the specified number of new books. You must specify a number'   # noqa: A003
 
     def add_arguments(self, parser):
-        parser.add_argument('add_books', type=int, choices=range(1, 100000), help='The passed value of the created '
-                                                                                  'books')
+        parser.add_argument('add_books', nargs='?', type=int, choices=range(1, 100000), default=500,
+                            help='You must specify a count of books [1; 100000] (default = 500)',
+                            metavar='books_count')
 
     def handle(self, *args, **options):
         for j in range(options['add_books']):
