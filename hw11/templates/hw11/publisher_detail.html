@@ -1,6 +1,13 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Publisher: {{ publisher.name }}</h1><br>
+    <h1>Publisher: {{ publisher.name }}</h1>
+    <h4>Book list:</h4>
+    <ul>
+        {% for book in publisher.book_set.all %}
+            <li><a href="{{ book.get_absolute_url }}">{{ book.name }}</a> ({{ book.rating }})</li>
+        {% endfor %}
+
+    </ul>
     
 {% endblock %}

@@ -11,12 +11,12 @@
     <ul>
       {% for store in store_list %}
       <li>
-          <p><a href="{{store.get_absolute_url}}">{{ store.name }} ({{ store.books.count }} books)</a></p>
+          <p><a href="{{store.get_absolute_url}}">{{ store.name }}</a> ({{ store.books_count }} books)</p>
       </li>
       {% endfor %}
     </ul>
     {% else %}
-      <p>There are no authors.</p>
+      <p>There are no Stores.</p>
     {% endif %}
 
 {% endblock %}

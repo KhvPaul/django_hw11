@@ -1,9 +1,10 @@
+from abc import ABC
+
+from django.db.models import Count, Avg, Func
+
 from .models import Author, Book, Publisher, Store
 
-from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.shortcuts import render
 from django.views import generic
 
 
@@ -21,20 +22,17 @@ def index(request):
 
 
 class AuthorListView(generic.ListView):
-    model = Author
+    queryset = Author.objects.all().prefetch_related('book_set').annotate(books_count=Count('book'))
     paginate_by = 25
 
 
 class AuthorDetailView(generic.DetailView):
-    model = Author
 
-    def author_detail_view(self, pk):
-        author = get_object_or_404(Author, pk=pk)
-        return render(
-            self,
-            'hw11/author_detail.html',
-            context={'author': author, }
-        )
+    class Round(Func, ABC):
+        function = 'ROUND'
+        template = '%(function)s(%(expressions)s, 2)'
+
+    queryset = Author.objects.prefetch_related('book_set').annotate(average_rating=Round(Avg('book__rating')))
 
 
 class BookListView(generic.ListView):
@@ -43,44 +41,22 @@ class BookListView(generic.ListView):
 
 
 class BookDetailView(generic.DetailView):
-    model = Book
-
-    def book_detail_view(self, pk):
-        book = get_object_or_404(Book, pk=pk)
-        return render(
-            self,
-            'hw11/book_detail.html',
-            context={'book': book, }
-        )
+    queryset = Book.objects.select_related("publisher").prefetch_related('authors', 'store_set')
 
 
 class PublisherListView(generic.ListView):
-    model = Publisher
+    queryset = Publisher.objects.all().prefetch_related('book_set').annotate(books_count=Count('book'))
+    paginate_by = 25
 
 
 class PublisherDetailView(generic.DetailView):
-    model = Publisher
-
-    def publisher_detail_view(self, pk):
-        publisher = get_object_or_404(Publisher, pk=pk)
-        return render(
-            self,
-            'hw11/publisher_detail.html',
-            context={'publisher': publisher, }
-        )
+    queryset = Publisher.objects.all().prefetch_related('book_set').annotate(books_count=Count('book'))
 
 
 class StoreListView(generic.ListView):
-    model = Store
+    queryset = Store.objects.all().prefetch_related('books').annotate(books_count=Count('books'))
+    paginate_by = 25
 
 
 class StoreDetailView(generic.DetailView):
-    model = Store
-
-    def store_detail_view(self, pk):
-        store = get_object_or_404(Store, pk=pk)
-        return render(
-            self,
-            'hw11/store_detail.html',
-            context={'store': store, }
-        )
+    queryset = Store.objects.all().prefetch_related('books')

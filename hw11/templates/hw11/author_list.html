@@ -11,12 +11,17 @@
     <ul>
       {% for author in author_list %}
       <li>
-          <p><a href="{{author.get_absolute_url}}">{{ author.name }} ({{ author.age }})</a></p>
+          <p>
+              <a href="{{author.get_absolute_url}}">
+                  {{ author.name }}
+              </a>
+              ({{ author.age }} y.o.  {{ author.books_count }} books)
+          </p>
       </li>
       {% endfor %}
     </ul>
     {% else %}
-      <p>There are no authors.</p>
+      <p>There are no Authors.</p>
     {% endif %}
 
 {% endblock %}

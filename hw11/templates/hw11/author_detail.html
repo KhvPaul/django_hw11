@@ -1,6 +1,24 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Author: {{ author.name }} ({{ author.age }})</h1><br>
+    <div class="content">
+        <h1>Author Info:</h1><br>
+        <ul>
+            <li>Author name: {{ author.name }}</li>
+            <li>Age: {{ author.age }} y.o.</li>
+            <li>Avg Rating: {{ author.average_rating }}</li>
+            <li>
+                <h4>
+                    Books:
+                    <ul>
+                        {% for book in author.book_set.all %}
+                            <li><a href="{{ book.get_absolute_url }}">{{ book.name }}</a>({{ book.rating }})</li>
+                        {% endfor %}
+                    </ul>
+                </h4>
+            </li>
+        </ul>
+    </div>
+
 
 {% endblock %}

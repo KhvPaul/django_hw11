@@ -1,6 +1,11 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Store: {{ store.name }} ({{ store.books.count }})</h1><br>
-    
+    <h1>Store: {{ store.name }}</h1><br>
+    <h4>Book list:</h4>
+    <ul>
+        {% for book in store.books.all %}
+            <li><a href="{{ book.get_absolute_url }}">{{ book.name }}</a> ({{ book.rating }})</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
