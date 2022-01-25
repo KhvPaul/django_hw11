@@ -12,5 +12,6 @@ urlpatterns = [
     path('publishers/<int:pk>', views.PublisherDetailView.as_view(), name='publisher-detail'),
     path('stores/', views.StoreListView.as_view(), name='stores'),
     path('stores/<int:pk>', views.StoreDetailView.as_view(), name='store-detail'),
+    path('reminder/', views.reminderForm, name='reminder-form'),
 
 ]

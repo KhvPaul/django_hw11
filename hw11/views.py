@@ -1,10 +1,13 @@
 from abc import ABC
+from datetime import datetime, timedelta
 
 from django.db.models import Avg, Count, Func
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import generic
 
+from .forms import ReminderForm
 from .models import Author, Book, Publisher, Store
+from .tasks.reminder_task import reminder
 
 
 def index(request):
@@ -59,3 +62,22 @@ class StoreListView(generic.ListView):
 
 class StoreDetailView(generic.DetailView):
     queryset = Store.objects.all().prefetch_related('books')
+
+
+def reminderForm(request):
+    if request.method == "POST":
+        form = ReminderForm(request.POST)
+        if form.is_valid():
+            # result = f'Successfully added reminder on {form.cleaned_data["date_time"]}'
+            reminder.apply_async((form.cleaned_data['subject'],
+                                  form.cleaned_data['date_time'],
+                                  form.cleaned_data['text'],
+                                  ), eta=form.cleaned_data['date_time'])
+            return redirect("reminder-form")
+    else:
+        form = ReminderForm(initial={
+            'date_time': f'{(datetime.now() + timedelta(hours=2)).strftime("%Y-%m-%d %H:%M:%S")}'
+        })
+    return render(request, 'hw12/reminder_form.html', {
+        'form': form,
+    })
