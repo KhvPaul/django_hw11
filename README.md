@@ -1,4 +1,6 @@
 # django_hw11
+<h2>celery -A hw11_core worker --loglevel=INFO</h2>
+
 ![](static/img/loaddata.png)
 
 <h3>You also can fill the database with the command</h3>
