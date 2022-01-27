@@ -5,13 +5,17 @@
 
         <h1>All Books</h1>
 
+        <a style="padding: 0.2em; background: rgb(103,238,66); color: black; border-radius: 10%" href="{% url 'book-create' %}">Create Book</a>
+
     </div>
 
     {% if book_list %}
     <ul>
       {% for book in book_list %}
-      <li>
+      <li style="display: flex; flex-direction: row; align-items: center; margin-bottom: 5px;">
           <p><a href="{{book.get_absolute_url}}">{{ book.name }}</a> ({{ book.rating }})</p>
+          <a style="padding: 0.2em; background: rgb(38,188,245); color: black; border-radius: 10%; font-size: 0.85em" href="{% url 'book-update' book.pk %}">Update Book</a>
+          <a style="padding: 0.2em; background: rgb(238,66,66); color: black; border-radius: 10%; font-size: 0.85em" href="{% url 'book-delete' book.pk %}">Delete Book</a>
       </li>
       {% endfor %}
     </ul>

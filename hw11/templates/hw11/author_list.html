@@ -5,6 +5,8 @@
 
         <h1>All Authors</h1>
 
+        <a style="padding: 0.2em; background: rgb(103,238,66); color: black; border-radius: 10%" href="{% url 'author-create' %}">Create Author</a>
+
     </div>
 
     {% if author_list %}
@@ -16,6 +18,8 @@
                   {{ author.name }}
               </a>
               ({{ author.age }} y.o.  {{ author.books_count }} books)
+              <a style="padding: 0.2em; background: rgb(38,188,245); color: black; border-radius: 10%" href="{% url 'author-update' author.pk %}">Update Author</a>
+              <a style="padding: 0.2em; background: rgb(238,66,66); color: black; border-radius: 10%" href="{% url 'author-delete' author.pk %}">Delete Author</a>
           </p>
       </li>
       {% endfor %}

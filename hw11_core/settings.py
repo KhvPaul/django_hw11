@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'hw11',
 
     'django_extensions',
+
+    'django_celery_results',
 ]
 
 if DEBUG:
@@ -130,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
@@ -151,4 +153,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     os.path.join(BASE_DIR, 'hw11/fixtures'),
 # )
 
+LOGIN_REDIRECT_URL = '/'
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_RESULT_BACKEND = 'amqp://guest:**@localhost:5672//'
+CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE

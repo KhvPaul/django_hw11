@@ -7,6 +7,10 @@
             <li>Author name: {{ author.name }}</li>
             <li>Age: {{ author.age }} y.o.</li>
             <li>Avg Rating: {{ author.average_rating }}</li>
+            <li class="container" style="display: flex; flex-direction: row; align-items: center">
+                <a style="padding: 0.2em; background: rgb(38,188,245); color: black; border-radius: 10%" href="{% url 'author-update' author.pk %}">Update Author</a>
+                <a style="padding: 0.2em; background: rgb(238,66,66); color: black; border-radius: 10%" href="{% url 'author-delete' author.pk %}">Delete Author</a>
+          </li>
             <li>
                 <h4>
                     Books:

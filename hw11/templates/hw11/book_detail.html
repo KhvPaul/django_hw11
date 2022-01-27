@@ -24,13 +24,17 @@
             <li>Publisher: <a href="{{ book.publisher.get_absolute_url }}">{{ book.publisher }}</a></li>
             <li>Pages: {{ book.pages }}</li>
             <li>
+            <li class="container" style="display: flex; flex-direction: row; align-items: center">
+                <a style="padding: 0.2em; background: rgb(38,188,245); color: black; border-radius: 10%" href="{% url 'book-update' book.pk %}">Update Author</a>
+                <a style="padding: 0.2em; background: rgb(238,66,66); color: black; border-radius: 10%" href="{% url 'book-delete' book.pk %}">Delete Author</a>
+            </li>
                 <h4>
                     {% if book.store_set.count == 1 %}
                     Store:
                     {% else %}
                     Stores:
                     {% endif %}
-                    <a href="{% url 'stores' %}">{{ book.store_set.count }} </a>
+                    <a href="{% url 'store-list' %}">{{ book.store_set.count }} </a>
                 </h4>
                 <ul>
                     {% for store in book.store_set.all %}
