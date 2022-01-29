@@ -1,9 +1,10 @@
 {% extends "base_generic.html" %}
-
+{% load cache %}
 {% block title %}
     <title>Hw11</title>
 {% endblock %}
 {% block content %}
+    {% cache 60 num_authors num_books num_publishers num_stores %}
 <h1>Hw11</h1>
     <p>The application has the following record counts:</p>
     <ul>
@@ -12,4 +13,5 @@
         <li><strong>Publishers:</strong> {{ num_publishers }}</li>
         <li><strong>Stores:</strong>{{ num_stores }}</li>
     </ul>
+    {% endcache %}
 {% endblock %}

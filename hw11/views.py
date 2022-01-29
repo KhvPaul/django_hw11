@@ -5,7 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Avg, Count, Func
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import generic
+from django.views.decorators.cache import cache_page
 
 from .forms import ReminderForm
 from .models import Author, Book, Publisher, Store
@@ -17,6 +19,7 @@ class Round(Func, ABC):
     template = '%(function)s(%(expressions)s, 2)'
 
 
+@method_decorator(cache_page(30), name='dispatch')
 class IndexTemplateView(generic.TemplateView):
     template_name = 'index.html'
 
@@ -29,6 +32,7 @@ class IndexTemplateView(generic.TemplateView):
         return context
 
 
+@method_decorator(cache_page(30), name='dispatch')
 class AuthorListView(generic.ListView):
     queryset = Author.objects.all().prefetch_related('book_set').annotate(books_count=Count('book'))
     paginate_by = 25
@@ -64,6 +68,7 @@ class AuthorDeleteView(LoginRequiredMixin, SuccessMessageMixin, generic.DeleteVi
     login_url = '/admin/'
 
 
+@method_decorator(cache_page(30), name='dispatch')
 class BookListView(generic.ListView):
     model = Book
     paginate_by = 25
@@ -99,6 +104,7 @@ class BookDeleteView(LoginRequiredMixin, SuccessMessageMixin, generic.DeleteView
     login_url = '/admin/'
 
 
+@method_decorator(cache_page(30), name='dispatch')
 class PublisherListView(generic.ListView):
     queryset = Publisher.objects.all().prefetch_related('book_set').annotate(books_count=Count('book'))
     paginate_by = 25
@@ -108,6 +114,7 @@ class PublisherDetailView(generic.DetailView):
     queryset = Publisher.objects.all().prefetch_related('book_set').annotate(books_count=Count('book'))
 
 
+@method_decorator(cache_page(30), name='dispatch')
 class StoreListView(generic.ListView):
     queryset = Store.objects.all().prefetch_related('books').annotate(books_count=Count('books'))
     paginate_by = 25

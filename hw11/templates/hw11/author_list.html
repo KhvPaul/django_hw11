@@ -1,6 +1,8 @@
 {% extends "base_generic.html" %}
+{% load cache %}
 
 {% block content %}
+    {% cache 60 author_list %}
     <div style="display: flex; flex-direction: row; align-items: center">
 
         <h1>All Authors</h1>
@@ -27,5 +29,6 @@
     {% else %}
       <p>There are no Authors.</p>
     {% endif %}
+    {% endcache %}
 
 {% endblock %}
